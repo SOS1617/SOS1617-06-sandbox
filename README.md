@@ -24,3 +24,8 @@ Los países elegidos de donde hemos obtenido estos datos son España, Polonia y 
 #Repositorio
 
 SOS1617/SOS1617-06-sandbox
+
+#Canal slack
+
+https://sos1617.slack.com/messages/sos1617-06/
+
