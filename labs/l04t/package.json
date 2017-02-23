@@ -1,0 +1,16 @@
+{
+  "name": "l04t",
+  "version": "0.0.0",
+  "description": "My first package for l04t lab",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "G06",
+  "license": "ISC",
+  "dependencies": {
+    "cool-ascii-faces": "^1.3.4",
+    "express": "^4.14.1"
+  }
+}
