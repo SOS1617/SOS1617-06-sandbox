@@ -18,7 +18,7 @@ Mateusz Dominik
 Jihane Fahri
 
 
-Cristina Leal Exhevarría
+Cristina Leal Echevarría
 
 #Descripcion breve sobre el trabajo 
 
