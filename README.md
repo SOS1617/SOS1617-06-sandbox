@@ -13,7 +13,11 @@ Trying close a issue
 #Alumnos SOS 
 
 Mateusz Dominik
+
+
 Jihane Fahri
+
+
 Cristina Leal Exhevarría
 
 #Descripcion breve sobre el trabajo 
