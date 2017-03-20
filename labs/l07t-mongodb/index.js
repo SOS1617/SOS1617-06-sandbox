@@ -8,7 +8,7 @@ var path = require('path');
 
 var MongoClient = require('mongodb').MongoClient;
 
-var mdbURL = "mongodb://<dbuser>:<dbpassword>@ds133260.mlab.com:33260/sos1617-06-md-sandbox"
+var mdbURL = "mongodb://md:sosmduser@ds133260.mlab.com:33260/sos1617-06-md-sandbox"
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
