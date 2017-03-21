@@ -1,0 +1,17 @@
+{
+  "name": "SOS1617-06-api",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "SOS1617-06",
+  "scripts": {
+    "start": "node education.js"
+  },
+  "contributors": [],
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "helmet": "^3.5.0",
+    "mongodb": "^2.2.25",
+    "path": "^0.12.7"
+  }
+}
