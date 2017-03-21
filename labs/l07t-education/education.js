@@ -13,21 +13,23 @@ var mdbURL = "mongodb://md:sosmduser@ds133260.mlab.com:33260/sos1617-06-md-sandb
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 
-var db;
+var dbMd;
 
-MongoClient.connect(mdbURL, {native_parser:true}, function (err, database) {
-   
-   if(err) {
-        console.log("Can not connect to DB: "+err);
+MongoClient.connect(mdbURL, {
+    native_parser: true
+}, function(err, database) {
+
+    if (err) {
+        console.log("Can not connect to DB: " + err);
         process.exit(1);
-   }
-   
-   db = database.collection("education");
-   
-   app.listen(port, () => {
-      console.log("Magic is happening on port " + port); 
-   });
-   
+    }
+
+    dbMd = database.collection("education");
+
+    app.listen(port, () => {
+        console.log("Magic is happening on port " + port);
+    });
+
 });
 
 var app = express();
@@ -35,10 +37,12 @@ var app = express();
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
+// Copy code below
+
 // GET Load inital data if database is empty
 app.get(BASE_API_PATH + "/education/loadInitialData", function(request, response) {
     console.log("INFO: New GET request to /education/loadInitialData");
-    db.find({}).count((err, count) => {
+    dbMd.find({}).count((err, count) => {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
@@ -46,10 +50,32 @@ app.get(BASE_API_PATH + "/education/loadInitialData", function(request, response
         console.log("INFO: Country count: " + count);
         if (count == 0) {
             // Load inital data
-            db.insertMany([{"country":"Spain","year":2013,"education-gdp-perc":4.3,"education-primary-per-capita":17.9,"education-secondary-per-capita":22.5,"education-tertiary-per-capita":22.9}, {"country":"Poland","year":2012,"education-gdp-perc":4.8,"education-primary-per-capita":25.5,"education-secondary-per-capita":23.8,"education-tertiary-per-capita":21.3}, {"country":"Morocco","year":2009,"education-gdp-perc":5.3,"education-primary-per-capita":16.6,"education-secondary-per-capita":30.5,"education-tertiary-per-capita":81.6}]);
+            dbMd.insertMany([{
+                "country": "Spain",
+                "year": 2013,
+                "education-gdp-perc": 4.3,
+                "education-primary-per-capita": 17.9,
+                "education-secondary-per-capita": 22.5,
+                "education-tertiary-per-capita": 22.9
+            }, {
+                "country": "Poland",
+                "year": 2012,
+                "education-gdp-perc": 4.8,
+                "education-primary-per-capita": 25.5,
+                "education-secondary-per-capita": 23.8,
+                "education-tertiary-per-capita": 21.3
+            }, {
+                "country": "Morocco",
+                "year": 2009,
+                "education-gdp-perc": 5.3,
+                "education-primary-per-capita": 16.6,
+                "education-secondary-per-capita": 30.5,
+                "education-tertiary-per-capita": 81.6
+            }]);
             console.log("INFO: Initial data created succesfully!");
             response.sendStatus(201); // created
-        } else {
+        }
+        else {
             // Not empty
             console.log("WARNING: Database is not empty - initial data will not be created");
             response.sendStatus(409); // conflict
@@ -60,7 +86,7 @@ app.get(BASE_API_PATH + "/education/loadInitialData", function(request, response
 // GET a collection
 app.get(BASE_API_PATH + "/education", function(request, response) {
     console.log("INFO: New GET request to /education");
-    db.find({}).toArray(function(err, education) {
+    dbMd.find({}).toArray(function(err, education) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
@@ -82,7 +108,9 @@ app.get(BASE_API_PATH + "/education/:country", function(request, response) {
     }
     else {
         console.log("INFO: New GET request to /education/" + name);
-        db.find({"country": name}).toArray( function(err, countryList) {
+        dbMd.find({
+            "country": name
+        }).toArray(function(err, countryList) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
@@ -117,7 +145,7 @@ app.post(BASE_API_PATH + "/education", function(request, response) {
             response.sendStatus(422); // unprocessable entity
         }
         else {
-            db.find({}).toArray( function(err, country) {
+            dbMd.find({}).toArray(function(err, country) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -134,7 +162,7 @@ app.post(BASE_API_PATH + "/education", function(request, response) {
                     }
                     else {
                         console.log("INFO: Adding country " + JSON.stringify(newCountry, 2, null));
-                        db.insert(newCountry);
+                        dbMd.insert(newCountry);
                         response.sendStatus(201); // created
                     }
                 }
@@ -174,14 +202,16 @@ app.put(BASE_API_PATH + "/education/:country", function(request, response) {
             response.sendStatus(422); // unprocessable entity
         }
         else {
-            db.find({country:nameParam}).toArray( function(err, countries) {
+            dbMd.find({
+                country: nameParam
+            }).toArray(function(err, countries) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 }
                 else {
                     if (countries.length > 0) {
-                        db.update({
+                        dbMd.update({
                             country: nameParam
                         }, newCountry);
                         console.log("INFO: Modifying country with name " + nameParam + " with data " + JSON.stringify(newCountry, 2, null));
@@ -201,7 +231,7 @@ app.put(BASE_API_PATH + "/education/:country", function(request, response) {
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/education", function(request, response) {
     console.log("INFO: New DELETE request to /education");
-    db.remove({}, {
+    dbMd.remove({}, {
         justOne: false
     }, function(err, numRemoved) {
         if (err) {
@@ -231,7 +261,7 @@ app.delete(BASE_API_PATH + "/education/:country", function(request, response) {
     }
     else {
         console.log("INFO: New DELETE request to /education/" + name);
-        db.remove({
+        dbMd.remove({
             country: name
         }, {}, function(err, numRemoved) {
             if (err) {
