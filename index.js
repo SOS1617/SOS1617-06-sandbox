@@ -23,6 +23,8 @@ var db = new DataStore({
 var app = express();
 myModule.register(app);
 
+app.use("/", express.static(path.join(__dirname, "public")));
+
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
