@@ -6,6 +6,9 @@ var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
 var DataStore = require('nedb');
+var myModule = require('./module.js');
+
+myModule.log("This is a test");
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
@@ -18,10 +21,7 @@ var db = new DataStore({
 });
 
 var app = express();
-
-app.get("/module", (req, res) => {
-    res.send("To be modularized");
-});
+myModule.register(app);
 
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security

@@ -4,7 +4,8 @@
   "keywords": [],
   "author": "agamez2@us.es",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "git add .; git commit -m 'Deploy application'; git push heroku md:master"
   },
   "contributors": [],
   "dependencies": {
