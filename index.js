@@ -19,6 +19,10 @@ var db = new DataStore({
 
 var app = express();
 
+app.get("/module", (req, res) => {
+    res.send("To be modularized");
+});
+
 app.use(bodyParser.json()); //use default json enconding/decoding
 app.use(helmet()); //improve security
 
