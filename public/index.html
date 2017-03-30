@@ -1,0 +1,36 @@
+<html ng-app="RESTClientApp">
+
+<head>
+    <title>Hello world!</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script>
+        /* global angular */
+        var app = angular.module("RESTClientApp", []);
+        console.log("App initialized");
+        app.controller("MainCtrl", ["$scope", "$http", function($scope, $http) {
+            console.log("Controller initialized");
+            //$scope.test = "petete";
+            $http
+                .get("https://sos161706md-sandbox-seewip.c9users.io/api/v1/contacts")
+                .then(function(response) {
+                    $scope.test = response.data;
+                });
+        }]);
+    </script>
+</head>
+
+<body ng-controller="MainCtrl">
+    <h1>Hello World!</h1>
+    <h2>REST Client</h2>
+    <label>URL:</label>
+    <input value="http://..." class="form-control" ng-model="test">
+    <button class="btn btn-danger">Send</button>
+    <textarea rows=5 class="form-control" ng-model="test">...</textarea>
+    <pre>{{test}}</pre>
+</body>
+
+</html>
