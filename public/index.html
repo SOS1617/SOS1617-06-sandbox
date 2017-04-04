@@ -15,24 +15,81 @@
             console.log("Controller initialized");
             //$scope.test = "petete";
             $scope.url = "https://sos161706md-sandbox-seewip.c9users.io/api/v1/contacts";
+            $scope.json = "{}";
+            $scope.type = "GET";
+            $scope.responsecode = "";
+            $scope.responsecode
             $scope.send = function() {
-                $http
-                    .get($scope.url)
-                    .then(function(response) {
-                        $scope.data = JSON.stringify(response.data, null, 2);
-                    });
+                $http({
+                    method: $scope.type,
+                    url: $scope.url,
+                    data: $scope.json,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function success(response) {
+                    $scope.responsecode = "Response code: " + response.status;
+                    $scope.responsecode
+                    $scope.data = JSON.stringify(response.data, null, 2);
+                }, function error(response) {
+                    $scope.responsecode = "Response code: " + response.status;
+                    $scope.data = response.data;
+                });
             }
         }]);
     </script>
+    <style>
+        body {
+            margin: 10px;
+        }
+        
+        body {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body ng-controller="MainCtrl">
     <h1>Hello World!</h1>
     <h2>REST Client</h2>
-    <label>URL:</label>
-    <input value="http://..." class="form-control" ng-model="url">
-    <button class="btn btn-danger" ng-click="send()">Send</button>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="URL" class="col-sm-1 control-label">URL: </label>
+            <div class="col-sm-11">
+                <input value="" class="form-control" ng-model="url">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="URL" class="col-sm-1 control-label">JSON: </label>
+            <div class="col-sm-11">
+                <input value="{}" class="form-control" ng-model="json">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-11">
+                <label class="radio-inline">
+                    <input type="radio" name="type" ng-model="type" value="GET"> GET
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" ng-model="type" value="POST"> POST
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" ng-model="type" value="PUT"> PUT
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" ng-model="type" value="DELETE"> PUT
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-11">
+                <button class="btn btn-danger" ng-click="send()">Send</button>
+            </div>
+        </div>
+    </form>
     <!--<textarea rows=5 class="form-control" ng-model="test">...</textarea>-->
+    <p>{{responsecode}}</p>
     <pre>{{data}}</pre>
 </body>
 

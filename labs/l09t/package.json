@@ -2,16 +2,16 @@
   "name": "SOS1617-L09",
   "version": "1.0.0",
   "keywords": [],
-  "author": "seewip",
+  "author": "",
   "scripts": {
-    "start": "node index.js",
-    "deploy": "git add .; git commit -m 'Deploy application'; git push heroku md:master"
+    "start": "node index.js"
   },
   "contributors": [],
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "helmet": "^3.5.0",
+    "mongodb": "^2.2.25",
     "nedb": "^1.8.0",
     "path": "^0.12.7"
   }

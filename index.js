@@ -6,9 +6,9 @@ var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
 var DataStore = require('nedb');
-var myModule = require('./module.js');
+//var myModule = require('./module.js');
 
-myModule.log("This is a test");
+//myModule.log("This is a test");
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
@@ -21,7 +21,7 @@ var db = new DataStore({
 });
 
 var app = express();
-myModule.register(app);
+//myModule.register(app);
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
@@ -33,7 +33,7 @@ app.use(helmet()); //improve security
 // @see: https://i.stack.imgur.com/whhD1.png
 // @see: https://blog.agetic.gob.bo/2016/07/elegir-un-codigo-de-estado-http-deja-de-hacerlo-dificil/
 
-console.log("---BEGIN PROBAR LA API CON CURL---");
+/*console.log("---BEGIN PROBAR LA API CON CURL---");
 console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
 console.log("curl -v -XPOST -H 'Content-type: application/json' -d '{ \"name\": \"David\", \"phone\": \"954556350\", \"email\": \"david@example.com\" }' 'http://localhost:8080/api/v1/contacts'");
 console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/David'");
@@ -45,7 +45,7 @@ console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://local
 console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts/Antonio'");
 console.log("curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
 console.log("curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/contacts'");
-console.log("---END PROBAR LA API CON CURL---");
+console.log("---END PROBAR LA API CON CURL---");*/
 
 
 db.find({}, function(err, contacts) {
@@ -85,10 +85,10 @@ db.find({}, function(err, contacts) {
 });
 
 // Base GET
-app.get("/", function(request, response) {
+/*app.get("/", function(request, response) {
     console.log("INFO: Redirecting to /contacts");
     response.redirect(301, BASE_API_PATH + "/contacts");
-});
+});*/
 
 
 // GET a collection
@@ -116,7 +116,9 @@ app.get(BASE_API_PATH + "/contacts/:name", function(request, response) {
     }
     else {
         console.log("INFO: New GET request to /contacts/" + name);
-        db.find({"name" : name}, function(err, contacts) {
+        db.find({
+            "name": name
+        }, function(err, contacts) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
@@ -213,7 +215,9 @@ app.put(BASE_API_PATH + "/contacts/:name", function(request, response) {
             response.sendStatus(422); // unprocessable entity
         }
         else {
-            db.find({name:nameParam}, function(err, contacts) {
+            db.find({
+                name: nameParam
+            }, function(err, contacts) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error

@@ -2,3 +2,6 @@
 {"name":"Felipe","phone":"954556356","email":"felipe@example.com","_id":"ClGbiWot8Hm3vOyi"}
 {"name":"Daniel","phone":"954556357","email":"daniel@example.com","_id":"E7MJ7pMm28K5AhU9"}
 {"name":"Ibone","phone":"954556359","email":"ibone@example.com","_id":"POPK07W7KTGf1UwC"}
+{"name":"Kowalski","phone":"587247829","email":"kowalski@example.com","_id":"eWRBdaQdBGgLXZ0p"}
+{"name":"Kowalsky","phone":"587247829","email":"kowalski@example.com","_id":"eWRBdaQdBGgLXZ0p"}
+{"$$deleted":true,"_id":"eWRBdaQdBGgLXZ0p"}
