@@ -1,0 +1,51 @@
+<html ng-app="ContactsManagerApp">
+
+<head>
+    <title>Hello world!</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/bower_components/materialize/dist/css/materialize.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script type="text/javascript" src="contact-manager-app.js"></script>
+    <script type="text/javascript" src="list-ctrl.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">Contacts</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div ng-controller="ListCtrl">
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="form-control" ng-model="newContact.name" /></td>
+                        <td><input class="form-control" ng-model="newContact.phone" /></td>
+                        <td><input class="form-control" ng-model="newContact.email" /></td>
+                        <td><button class="btn waves-effect waves-light" ng-click="addContact()">Add</button></td>
+                    </tr>
+                    <tr ng-repeat="contactUnit in contacts">
+                        <td>{{contactUnit.name}}</td>
+                        <td>{{contactUnit.phone}}</td>
+                        <td>{{contactUnit.email}}</td>
+                        <td><button class="btn waves-effect waves-light red" ng-click="delContact(contactUnit)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
