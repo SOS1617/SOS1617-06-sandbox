@@ -21,6 +21,15 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             });
     };
 
+    $scope.editContact = function(contact) {
+        $http
+            .put("api/v1/contacts/" + contact.name, contact)
+            .then(function(response) {
+                console.log("Contact " + contact.name + " edited!");
+                refresh();
+            });
+    };
+
     $scope.delContact = function(contact) {
         $http
             .delete("api/v1/contacts/" + contact.name)
