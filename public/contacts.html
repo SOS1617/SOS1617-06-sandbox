@@ -14,39 +14,52 @@
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">Contacts</a>
+    <header>
+        <nav>
+            <div class="nav-wrapper blue">
+                <a href="#" class="brand-logo center"><i class="material-icons left">contacts</i>Contacts</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div ng-controller="ListCtrl">
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="form-control" ng-model="newContact.name" /></td>
+                            <td><input class="form-control" ng-model="newContact.phone" /></td>
+                            <td><input class="form-control" ng-model="newContact.email" /></td>
+                            <td><button class="btn waves-effect waves-light" ng-click="addContact()"><i class="material-icons">add</i></button></td>
+                        </tr>
+                        <tr ng-repeat="contactUnit in contacts">
+                            <td>{{contactUnit.name}}</td>
+                            <td><input class="form-control" ng-model="contactUnit.phone"></input>
+                            </td>
+                            <td><input class="form-control" ng-model="contactUnit.email"></input>
+                            </td>
+                            <td><button class="btn waves-effect waves-light" ng-click="editContact(contactUnit)"><i class="material-icons">edit</i></button> <button class="btn waves-effect waves-light red" ng-click="delContact(contactUnit)"><i class="material-icons">delete</i></button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td ng-show="contacts.length==0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialContacts()"><i class="material-icons left">recent_actors</i>Load inital data</button></td>
+                            <td ng-show="contacts.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="delAllContacts()"><i class="material-icons left">warning</i>Remove all</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </nav>
-    <div class="container">
-        <div ng-controller="ListCtrl">
-            <table class="highlight">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input class="form-control" ng-model="newContact.name" /></td>
-                        <td><input class="form-control" ng-model="newContact.phone" /></td>
-                        <td><input class="form-control" ng-model="newContact.email" /></td>
-                        <td><button class="btn waves-effect waves-light" ng-click="addContact()"><i class="material-icons">add</i></button></td>
-                    </tr>
-                    <tr ng-repeat="contactUnit in contacts">
-                        <td>{{contactUnit.name}}</td>
-                        <td><input class="form-control" ng-model="contactUnit.phone"></input></td>
-                        <td><input class="form-control" ng-model="contactUnit.email"></input></td>
-                        <td><button class="btn waves-effect waves-light" ng-click="editContact(contactUnit)"><i class="material-icons">edit</i></button> <button class="btn waves-effect waves-light red" ng-click="delContact(contactUnit)"><i class="material-icons">delete</i></button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </main>
 </body>
 
 </html>

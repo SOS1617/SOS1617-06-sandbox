@@ -90,6 +90,45 @@ db.find({}, function(err, contacts) {
     response.redirect(301, BASE_API_PATH + "/contacts");
 });*/
 
+// GET Load inital data if database is empty
+app.get(BASE_API_PATH + "/contacts/loadInitialData", function(request, response) {
+    console.log("INFO: New GET request to /education/loadInitialData");
+    db.find({}, function(err, contacts) {
+
+        if (err) {
+            console.error('WARNING: Error while getting initial data from DB');
+            return 0;
+        }
+
+        if (contacts.length === 0) {
+            console.log('INFO: Empty DB, loading initial data');
+
+            var people = [{
+                "name": "Felipe",
+                "phone": "954556356",
+                "email": "felipe@example.com"
+            }, {
+                "name": "Daniel",
+                "phone": "954556357",
+                "email": "daniel@example.com"
+            }, {
+                "name": "Quique",
+                "phone": "954556358",
+                "email": "quique@example.com"
+            }, {
+                "name": "Ibone",
+                "phone": "954556359",
+                "email": "ibone@example.com"
+            }];
+            db.insert(people);
+            response.sendStatus(201); // created
+        }
+        else {
+            console.log('INFO: DB has ' + contacts.length + ' contacts ');
+            response.sendStatus(409); // conflict
+        }
+    });
+});
 
 // GET a collection
 app.get(BASE_API_PATH + "/contacts", function(request, response) {

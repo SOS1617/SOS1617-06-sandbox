@@ -8,6 +8,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             .get("api/v1/contacts")
             .then(function(response) {
                 $scope.contacts = response.data;
+                console.log("Contacts count: " + $scope.contacts.length);
             });
     }
 
@@ -39,6 +40,29 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             });
     };
 
+    $scope.delAllContacts = function() {
+        $http
+            .delete("api/v1/contacts")
+            .then(function(response) {
+                console.log("All contacts deleted!");
+                refresh();
+            });
+    };
+
+    $scope.loadInitialContacts = function() {
+        refresh();
+        if ($scope.contacts.length == 0) {
+            $http
+                .get("api/v1/contacts/loadInitialData")
+                .then(function(response) {
+                    console.log("Initial contacts loaded");
+                    refresh();
+                });
+        }
+        else {
+            console.log("Contacts must be empty!");
+        }
+    };
 
     refresh();
 }]);
