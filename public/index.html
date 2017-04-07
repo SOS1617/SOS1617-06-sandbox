@@ -1,57 +1,43 @@
-<html ng-app="RESTClient">
+<html>
 
 <head>
-    <title>Hello world!</title>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>seewip's projects</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/bower_components/materialize/dist/css/materialize.min.css" type="text/css" />
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="/bower_components/materialize/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="restclient.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body ng-controller="ListCtrl">
+<body>
     <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">REST Client</a>
+        <div class="nav-wrapper grey">
+            <a href="#" class="brand-logo center">seewip's projects</a>
         </div>
     </nav>
     </br>
-    <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="url" type="text" ng-model="url">
-                    <label for="URL">URL</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="json" type="text" ng-model="json">
-                    <label for="JSON">JSON</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <input id="get" type="radio" name="type" ng-model="type" value="GET">
-                    <label for="get">GET</label>
-
-                    <input id="post" type="radio" name="type" ng-model="type" value="POST">
-                    <label for="post">POST</label>
-
-                    <input id="put" type="radio" name="type" ng-model="type" value="PUT">
-                    <label for="put">PUT</label>
-
-                    <input id="delete" type="radio" name="type" ng-model="type" value="DELETE">
-                    <label for="delete">DELETE</label>
-                </div>
-            </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="send()">Send</button>
-        </form>
+    <div class="container">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>REST Client</td>
+                    <td>Simple REST Client written using angular</td>
+                    <td><a href="restclient.html"><button class="btn waves-effect waves-light light-green"><i class="material-icons left">launch</i>Launch</button></a></td>
+                </tr>
+                <tr>
+                    <td>Contacts</td>
+                    <td>node.js and angular based contacts application</td>
+                    <td><a href="contacts.html"><button class="btn waves-effect waves-light blue"><i class="material-icons left">launch</i>Launch</button></a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <p>{{responsecode}}</p>
-    <pre>{{data}}</pre>
 </body>
 
 </html>
